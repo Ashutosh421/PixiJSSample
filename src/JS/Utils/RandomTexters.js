@@ -8,6 +8,11 @@ export const RandomTextList = [
 	'BONUS  :D 25$'
 ];
 
+/**
+ * Returns and integer in range start - end
+ * @param {number} start 
+ * @param {number} end 
+ */
 export const RandomRangeInt = (start , end) => {
 	return Math.floor(Math.random() * (end - start + 1)) + start;
 };
