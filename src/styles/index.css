@@ -1,0 +1,22 @@
+*{
+    margin: 0px;
+    border: 0px;
+    padding: 0px;
+}
+
+body{
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+#StatsHolder{
+    display: grid;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.gridItem{
+    
+}
+

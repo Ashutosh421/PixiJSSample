@@ -1,0 +1,4 @@
+#Add all the directory, files etc to be ignored by git
+
+#Dependency Directories
+node_modules
