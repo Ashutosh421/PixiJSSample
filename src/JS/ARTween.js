@@ -1,5 +1,5 @@
 import { EventEmitter } from './EventEmitter';
-
+import { ticker } from 'pixi.js';
 
 /**
  *  This is the most basic Tween Engine. Since this is at baby stage, I have added only four tween functions.
@@ -20,6 +20,7 @@ export class Tweener{
 		this.eventEmitter = new EventEmitter();    //EventEmitter for the Tweener
 		this.startValue = start;                   //Start Value of the Tween
 		this.currentValue = start;                 //Current Vale of the Tween
+		this.gapTime = 0;
 		this.endValue = end;                       //End Value of the Tween
 		this.duration = duration;                  //Duration of the Tween
 		this.tweenFun = easeType;                  //Tween Function to be used
@@ -29,7 +30,7 @@ export class Tweener{
      * OnTweenStart
      */
 	start(){
-		this.startTime = performance.now();        //Record the start time
+		this.startTime = ARTween.status;        //Record the start time
 		this.eventEmitter.trigger('start' , this.currentValue);        //Fire an event to the event listeners onstart
 		this.started = true;                        
 	}
@@ -73,9 +74,9 @@ export class ValueTweener extends Tweener{
 	update(){
 		if(!this.started) return;
 		this.eventEmitter.trigger('update', this.currentValue);
-		this.currentTime = performance.now() - this.startTime;
+		this.currentTime = (ARTween.status) - this.startTime;
 		this.currentValue = this.tweenFun(this.currentTime , this.currentValue , this.endValue - this.currentValue , this.duration);
-		this.tweenerCompleteCheck(() => performance.now() >= this.startTime + this.duration);
+		this.tweenerCompleteCheck(() => ARTween.status >= this.startTime + this.duration);
 	}
 }
 
@@ -90,10 +91,10 @@ export class Vector2DTweener extends Tweener{
 	update(){
 		if(!this.started) return;
 		this.eventEmitter.trigger('update', this.currentValue);
-		this.currentTime = performance.now() - this.startTime;
+		this.currentTime = ARTween.status - this.startTime;
 		this.currentValue.x = this.tweenFun(this.currentTime , this.currentValue.x , this.endValue.x - this.currentValue.x , this.duration);
 		this.currentValue.y = this.tweenFun(this.currentTime , this.currentValue.y , this.endValue.y - this.currentValue.y , this.duration);
-		this.tweenerCompleteCheck(() => (performance.now() >= this.startTime + this.duration));
+		this.tweenerCompleteCheck(() => (ARTween.status >= this.startTime + this.duration));
 	}
 }
 
@@ -101,6 +102,11 @@ export class Vector2DTweener extends Tweener{
 const tweeners = new Array(); 
 
 export class ARTween{
+
+	static init(ticker){
+		ARTween.ticker = ticker;
+		ARTween.status = 0;
+	}
     
 	/**
      * Interpolates number as per the ease type
@@ -112,7 +118,7 @@ export class ARTween{
 	static Value(start , endValue , duration , easeType = EaseType.LINEAR){
 		const tweener = new ValueTweener(start , endValue, duration, easeType);
 		tweeners.push(tweener);
-		tweener.start();
+		tweener.start(ARTween.ticker);
 		tweener.on('complete' , () => {
 			tweeners.splice(tweeners.indexOf(tweener) , 1);
 			tweener.flush();
@@ -130,7 +136,7 @@ export class ARTween{
 	static Vector2D(start , endValue , duration , easeType = EaseType.LINEAR){
 		const tweener = new Vector2DTweener(start , endValue, duration, easeType);
 		tweeners.push(tweener);
-		tweener.start();
+		tweener.start(ARTween.ticker);
 		tweener.on('complete' , () => {
 			tweeners.splice(tweeners.indexOf(tweener) , 1);
 			tweener.flush();
@@ -143,7 +149,12 @@ export class ARTween{
      * @param {PIXI.Application.ticker} ticker 
      */
 	static Update(ticker){
+		ARTween.status++;
 		tweeners.forEach(tweener => tweener.update(ticker));
+	}
+    
+	static VisibilityChange(hidden){
+		hidden ? ticker.shared.stop() : ticker.shared.start();
 	}
 
 	/**
@@ -175,6 +186,8 @@ class TweenEQ{
 		return change*((time=time/duration-1)*time*((s+1)*time + s) + 1) + start;
 	}
 }
+
+document.onvisibilitychange = () => ARTween.VisibilityChange(document.hidden);
 
 
 export const EaseType = {

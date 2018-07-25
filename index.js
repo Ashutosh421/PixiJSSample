@@ -30,6 +30,7 @@ const app = new App({
 	backgroundColor: 0x6e6e6e
 });   //Creating the App
 app.trackWindow();
+ARTween.init(app.ticker);
 
 app.ticker.add(() => {
 	statistics.forEach(stat => stat.update());

@@ -53,7 +53,7 @@ export class CardLevel extends Level {
 		setTimeout(()=> this.cardsCotainer.setChildIndex(cardToMove , (1 + cardIndex)) , 1000);  //After 1 second change the card's index in SceneGraph to update the Render Order
 		targetStack.push(cardToMove); //Push the card into target stack
 		const targetPosition = sourceStack === this.cards1 ? new Vector2D(700 , 5 * (1 + cardIndex)) : new Vector2D(100 , 5 * (1 + cardIndex)); //Destination position where the card is to be moved
-		const cardTranslationTween = ARTween.Vector2D(new Vector2D(cardToMove.position.x , cardToMove.position.y) , targetPosition   , 4000 ,EaseType.EASEINCUBIC);  //Creating a tween object to move the card to the destination
+		const cardTranslationTween = ARTween.Vector2D(new Vector2D(cardToMove.position.x , cardToMove.position.y) , targetPosition   , 1000 ,EaseType.LINEAR);  //Creating a tween object to move the card to the destination
 		cardTranslationTween.on('update' , value => cardToMove.position.set(value[0].x , value[0].y));  //Update the card's position as per the tween's interpolated values
 	}
 
