@@ -62,7 +62,7 @@ export class CardLevel extends Level {
      * Returns a Promise
      */
 	loadParticleEffectDemo() {
-		const paticleImages = ['./src/Images/Particles/particle.png'];   //All the images that need to be loaded by the PIXI.loader
+		const paticleImages = ['/src/Images/Particles/particle.png'];   //All the images that need to be loaded by the PIXI.loader
 		return new Promise((resolve , reject) => {      
 			loader.add(paticleImages).load(() => {         //On particle images loaded
 				this.fireParticleEffect = new FireParticleEffect(1000, {    //Create a FireParticleEffect
@@ -85,7 +85,7 @@ export class CardLevel extends Level {
      */
 	loadAllImageResources() {
 		return new Promise((resolve, reject) => {
-			loader.load('Smile', './src/Emoticons/Smile.png')
+			loader.load('Smile', '/src/Emoticons/Smile.png')
 				.on('error', () => reject('Error loading Image'))
 				.load(() => resolve());
 		});
@@ -115,7 +115,7 @@ export class CardLevel extends Level {
      * Setups the initial card grid
      */
 	setUPCardGrid() {
-		const cardPath = './src/Images/CharacterStack/CS_71_100x150.png';
+		const cardPath = '/src/Images/CharacterStack/CS_71_100x150.png';
 		return new Promise((resolve, reject) => {
 			loader.add(cardPath)
 				.on('error', error => reject(`Error loading texture: ${error}`))

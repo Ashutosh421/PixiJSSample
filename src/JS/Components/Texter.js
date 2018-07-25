@@ -15,14 +15,14 @@ const expressions = [
 //Sprites to be loaded once regular expressions matches are found in the Text
 //Add the ICON Here!
 const IconImageMap = {
-	':)' : './src/Images/Emoticons/Smile_50x50.png',     
-	'$'  : './src/Images/Emoticons/Dollar_50x50.png',
-	'!'  : './src/Images/Emoticons/Dollar_50x50.png',
-	'@'  : './src/Images/Emoticons/Dollar_50x50.png',
-	';)'  : './src/Images/Emoticons/Smile_50x50.png',
-	':D'  : './src/Images/Emoticons/Smile_50x50.png',
-	':V'  : './src/Images/Emoticons/Smile_50x50.png',
-	':('  : './src/Images/Emoticons/Smile_50x50.png',
+	':)' : '/src/Images/Emoticons/Smile_50x50.png',     
+	'$'  : '/src/Images/Emoticons/Dollar_50x50.png',
+	'!'  : '/src/Images/Emoticons/Dollar_50x50.png',
+	'@'  : '/src/Images/Emoticons/Dollar_50x50.png',
+	';)'  : '/src/Images/Emoticons/Smile_50x50.png',
+	':D'  : '/src/Images/Emoticons/Smile_50x50.png',
+	':V'  : '/src/Images/Emoticons/Smile_50x50.png',
+	':('  : '/src/Images/Emoticons/Smile_50x50.png',
 };
 
 
