@@ -16,13 +16,13 @@ This is a sample in PixiJS v4.8.1.
     npm install
 ```
 
-2. Once the installation is complete, to start the development server run start:dev. This will create a development build and run the game in the development server
+2. Once the installation is complete, to start the development server run start:dev. This will create a development  build and run the game using the development server
 ```js
     npm run start:dev
 ```
    
 3. To make a production build run
 ```js
-    npm run build
+    npm run build:prod
 ```
  
