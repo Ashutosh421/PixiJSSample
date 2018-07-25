@@ -1,1 +1,0 @@
-import { Emitter} from 'pixi-particles';
